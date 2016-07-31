@@ -55,9 +55,9 @@ def batch_url_to_csv(urls,fnames):
             else:
                 files_saved.append(url_to_csv(urls[index],fnames[index]))
         except ValueError:
-            warnings.warn('RuntimeWarning,%s has been skipped' % (urls[index]))
+            warnings.warn('UserGeneratedWarning!',RuntimeWarning)
         except TypeError:
-            warnings.warn('%s has been skipped'%(urls[index]))
+            warnings.warn('UserGeneratedWarning!',RuntimeWarning)
         except AssertionError:
             raise AssertionError("Duplicate URLs cannot be present in the parameter 'urls'.")
     return files_saved
@@ -71,7 +71,7 @@ def url_to_df(url):
     data = pd.read_csv(url, header = None)
     return data
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
     # print url_to_csv("code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/",
     #            "abalone.csv")
     # print url_to_csv("http://code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/", "abc.csv")
@@ -101,3 +101,14 @@ def url_to_df(url):
     #                                                            "url5.csv", "urlx6.csv", "url1.csv"])
     # print saved2
     # data = url_to_df("https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data")
+
+    url1 = "https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"
+    url2 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt"
+    urlx3 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat"
+    urlx4 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00250/example-data.dat"
+    url5 = "helloollooo"
+    urlx6 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
+    urls = [url2, urlx3, urlx4, url5, urlx6, url1]
+    fnames = ["url2.csv", "urlx3.csv", "urlx4.csv", "url5.csv", "urlx6.csv", "url1.csv"]
+
+    saved = batch_url_to_csv(urls, fnames)
