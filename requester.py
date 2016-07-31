@@ -3,6 +3,7 @@ import warnings
 import os
 import urllib2
 import validators
+from pandas.util.testing import assert_frame_equal
 
 def url_to_csv(url,fname):
     """
@@ -47,19 +48,28 @@ def batch_url_to_csv(urls,fnames):
     files_saved=[]
     for index in range(len(urls)):
         try:
-            file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", fnames[index])
-            if urls[index] in urls[0:index]:
-                    raise AssertionError
+            # file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", fnames[index])
             # if (file_path in files_saved) or (urls[index] in urls[0:index]):
             #     continue
+            if urls[index] in urls[0:index]:
+                raise AssertionError
             else:
                 files_saved.append(url_to_csv(urls[index],fnames[index]))
         except ValueError:
-            warnings.warn('UserGeneratedWarning!',RuntimeWarning)
+            warnings.warn("UserGeneratedWarning!", RuntimeWarning)
         except TypeError:
-            warnings.warn('UserGeneratedWarning!',RuntimeWarning)
+            warnings.warn("UserGeneratedWarning!", RuntimeWarning)
         except AssertionError:
             raise AssertionError("Duplicate URLs cannot be present in the parameter 'urls'.")
+
+    length_files = len(files_saved) - 1
+    if (length_files == 1) and (pd.read_csv(files_saved[0]).equals(pd.read_csv(files_saved[1]))):
+            warnings.warn("UserGeneratedWarning", RuntimeWarning)
+    else:
+        for index in range(length_files):
+            for item in files_saved[index + 1:]:
+                if (pd.read_csv(item).equals(pd.read_csv(files_saved[index]))):
+                    warnings.warn("UserGeneratedWarning", RuntimeWarning)
     return files_saved
 
 def url_to_df(url):
@@ -102,13 +112,16 @@ if __name__ == "__main__":
     # print saved2
     # data = url_to_df("https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data")
 
-    url1 = "https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"
-    url2 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt"
-    urlx3 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat"
-    urlx4 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00250/example-data.dat"
-    url5 = "helloollooo"
-    urlx6 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
-    urls = [url2, urlx3, urlx4, url5, urlx6, url1]
-    fnames = ["url2.csv", "urlx3.csv", "urlx4.csv", "url5.csv", "urlx6.csv", "url1.csv"]
+    # url1 = "https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"
+    # url2 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt"
+    # urlx3 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat"
+    # urlx4 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00250/example-data.dat"
+    # url5 = "helloollooo"
+    # urlx6 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
+    # urls = [url2, urlx3, urlx4, url5, urlx6, url1]
+    # fnames = ["url2.csv", "urlx3.csv", "urlx4.csv", "url5.csv", "urlx6.csv", "url1.csv"]
 
-    saved = batch_url_to_csv(urls, fnames)
+    url2 = "https://github.com/gaurikatyagi/HS698/blob/master/heart_website/static/data/data.csv"
+    urlx3 = "https://github.com/gaurikatyagi/heart_analysis/blob/master/static/noisy_data.csv"
+
+    saved = batch_url_to_csv([url2, urlx3], ["url2.csv", "urlx3.csv"])
