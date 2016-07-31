@@ -40,9 +40,9 @@ def batch_url_to_csv(urls,fnames):
         Returns a list of the filenames saved.
         should NOT raise any errors if a URL fails to be accessed or if the URL cannot be parsed as CSV; instead, it
         should simply emit a RuntimeWarning (Links to an external site.) indicating that the URL was skipped.
-        :param urls:
-        :param fnames:
-        :return: data_names
+        :param urls: list of urls to be traversed
+        :param fnames: list of file names to be saved
+        :return: data_names list of paths to files saved
     """
     files_saved=[]
     for index in range(len(urls)):
@@ -71,13 +71,7 @@ def url_to_df(url):
     data = pd.read_csv(url, header = None)
     return data
 
-
-# print batch_url_to_csv(url=['https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data',
-#                             'http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data',
-#                             'www.google.com'],
-#                        fname=['adult', 'abalone', 'google'])
-
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # print url_to_csv("code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/",
     #            "abalone.csv")
     # print url_to_csv("http://code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/", "abc.csv")
@@ -86,17 +80,24 @@ if __name__ == "__main__":
     # print url_to_csv("webhp?sourceid=chrome-instant&rlz=1C5CHFA_enUS698US699&ion=1&espv=2&ie=UTF-8", "hello.csv")
     # print url_to_csv("webhp?sourceid=chrome-instant&rlz=1C5CHFA_enUS698US699&ion=1&espv=2&ie=UTF-8", "hello.csv")
 
-    url1 = "https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"
-    url2 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt"
-    urlx3 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat"
-    urlx4 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00250/example-data.dat"
-    url5 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00246/3D_spatial_network.txt"
-    urlx6 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
-    saved = batch_url_to_csv([url2, urlx3, urlx4, url5, urlx6, url1], ["url2.csv", "urlx3.csv", "urlx4.csv",
-                                                               "url5.csv", "urlx6.csv", "url1.csv"])
-    print saved
+    # url1 = "https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"
+    # url2 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt"
+    # urlx3 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat"
+    # urlx4 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00250/example-data.dat"
+    # url5 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00246/3D_spatial_network.txt"
+    # urlx6 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
 
-    saved2 = batch_url_to_csv([url2, urlx3, url2, url5, urlx6, url2], ["url2.csv", "urlx3.csv", "urlx4.csv",
-                                                               "url5.csv", "urlx6.csv", "url1.csv"])
-    print saved2
+    # url1 = "hello"
+    # url2 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt"
+    # urlx3 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat"
+    # urlx4 = "archive.ics.uci.edu/ml/machine-learning-databases"
+    # url5 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00246/3D_spatial_network.txt"
+    # urlx6 = "https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
+    # saved = batch_url_to_csv([url2, urlx3, urlx4, url5, urlx6, url1], ["url2.csv", "urlx3.csv", "urlx4.csv",
+    #                                                            "url5.csv", "urlx6.csv", "url1.csv"])
+    # print saved
+
+    # saved2 = batch_url_to_csv([url2, urlx3, url2, url5, urlx6, url2], ["url2.csv", "urlx3.csv", "urlx4.csv",
+    #                                                            "url5.csv", "urlx6.csv", "url1.csv"])
+    # print saved2
     # data = url_to_df("https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data")
