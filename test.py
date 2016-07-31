@@ -91,7 +91,7 @@ class test_batch_url_to_csv(unittest.TestCase):
             # Causes all warnings to always be triggered
             warnings.simplefilter("always")
             batch_url_to_csv(urls, fnames)
-            assert len(warning_created) == 2
+            assert len(warning_created) == 1
             assert issubclass(warning_created[-1].category, RuntimeWarning)
             assert "UserGeneratedWarning!" in str(warning_created[-1].message)
 
