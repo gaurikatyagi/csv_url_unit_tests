@@ -53,7 +53,7 @@ class test_url_to_df(unittest.TestCase):
         """
         url = "https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"
         file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data","abalone.csv")
-        self.assertEquals(url_to_df(url).index, pd.read_csv(file_path, header = None).index())
+        self.assertEquals(url_to_df(url).shape[0], pd.read_csv(file_path, header = None).shape[0])
 
 class test_batch_url_to_csv(unittest.TestCase):
 
