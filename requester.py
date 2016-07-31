@@ -61,15 +61,15 @@ def batch_url_to_csv(urls,fnames):
             warnings.warn("UserGeneratedWarning!", RuntimeWarning)
         except AssertionError:
             raise AssertionError("Duplicate URLs cannot be present in the parameter 'urls'.")
-
-    length_files = len(files_saved) - 1
-    if (length_files == 1) and (pd.read_csv(files_saved[0]).equals(pd.read_csv(files_saved[1]))):
-            warnings.warn("UserGeneratedWarning", RuntimeWarning)
-    else:
-        for index in range(length_files):
-            for item in files_saved[index + 1:]:
-                if (pd.read_csv(item).equals(pd.read_csv(files_saved[index]))):
-                    warnings.warn("UserGeneratedWarning", RuntimeWarning)
+    #Checking if different urls have same csv
+    # length_files = len(files_saved) - 1
+    # if (length_files == 1) and (pd.read_csv(files_saved[0]).equals(pd.read_csv(files_saved[1]))):
+    #         warnings.warn("UserGeneratedWarning", RuntimeWarning)
+    # else:
+    #     for index in range(length_files):
+    #         for item in files_saved[index + 1:]:
+    #             if (pd.read_csv(item).equals(pd.read_csv(files_saved[index]))):
+    #                 warnings.warn("UserGeneratedWarning", RuntimeWarning)
     return files_saved
 
 def url_to_df(url):
@@ -81,7 +81,7 @@ def url_to_df(url):
     data = pd.read_csv(url, header = None)
     return data
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # print url_to_csv("code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/",
     #            "abalone.csv")
     # print url_to_csv("http://code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/", "abc.csv")
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     # urls = [url2, urlx3, urlx4, url5, urlx6, url1]
     # fnames = ["url2.csv", "urlx3.csv", "urlx4.csv", "url5.csv", "urlx6.csv", "url1.csv"]
 
-    url2 = "https://github.com/gaurikatyagi/HS698/blob/master/heart_website/static/data/data.csv"
-    urlx3 = "https://github.com/gaurikatyagi/heart_analysis/blob/master/static/noisy_data.csv"
-
-    saved = batch_url_to_csv([url2, urlx3], ["url2.csv", "urlx3.csv"])
+    # url2 = "https://github.com/gaurikatyagi/HS698/blob/master/heart_website/static/data/data.csv"
+    # urlx3 = "https://github.com/gaurikatyagi/heart_analysis/blob/master/static/noisy_data.csv"
+    #
+    # saved = batch_url_to_csv([url2, urlx3], ["url2.csv", "urlx3.csv"])
