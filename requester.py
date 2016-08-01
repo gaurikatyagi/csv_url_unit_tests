@@ -3,7 +3,6 @@ import warnings
 import os
 import urllib2
 import validators
-from pandas.util.testing import assert_frame_equal
 
 def url_to_csv(url,fname):
     """
@@ -28,7 +27,6 @@ def url_to_csv(url,fname):
         raise ValueError
     except (IOError):
         raise TypeError
-    # except pd.io.common.CParserError:
     except pd.parser.CParserError:
         raise TypeError
     except Exception as e:
@@ -78,10 +76,23 @@ def url_to_df(url):
     :param url: string variable which is used to pass a url
     :return: pandas DataFrame which contains the data on the url
     """
-    data = pd.read_csv(url, header = None)
+    try:
+        urllib2.urlopen(url)
+        if validators.url(url) != True:
+            raise ValueError
+        else:
+            data = pd.read_csv(url, header = None)
+    except (urllib2.HTTPError):
+        raise ValueError
+    except (IOError):
+        raise TypeError
+    except pd.parser.CParserError:
+        raise TypeError
+    except Exception as e:
+        raise ValueError
     return data
 
-# if __name__ == "__main__":
+        # if __name__ == "__main__":
     # print url_to_csv("code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/",
     #            "abalone.csv")
     # print url_to_csv("http://code.activestate.com/recipes/286225-httpexists-find-out-whether-an-http-reference-is-v/", "abc.csv")
