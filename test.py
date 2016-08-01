@@ -182,7 +182,7 @@ class test_batch_url_to_csv(unittest.TestCase):
                 for item in files_saved[index + 1:]:
                     if (pd.read_csv(item).equals(pd.read_csv(files_saved[index]))):
                         check = False
-        self.assertEquals(check, False)
+        self.assertEquals(check, True)
 
         # saved = batch_url_to_csv([url2, urlx3, urlx4, url5], ["url2.csv", "urlx3.csv", "urlx4.csv", "url5.csv"])
         # length_files = len(saved)-1
